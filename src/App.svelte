@@ -1,4 +1,5 @@
 <script>
+  console.log("SVELTE IS RUNNING")
 </script>
 
 <div>
