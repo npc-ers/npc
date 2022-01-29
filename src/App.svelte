@@ -1,5 +1,7 @@
 <script>
   console.log("SVELTE IS RUNNING")
+  import { defaultEvmStores } from 'svelte-web3';
+  defaultEvmStores.setProvider()
 </script>
 
 <div>
