@@ -1,29 +1,23 @@
 <script>
-  console.log("SVELTE IS RUNNING")
-  import { defaultEvmStores } from 'svelte-web3';
-  defaultEvmStores.setProvider()
+  console.log("SVELTE IS RUNNING");
+  import {
+  chainId,connected,defaultEvmStores,selectedAccount,web3
+  } from "svelte-web3";
+
+  defaultEvmStores.setProvider();
+
+
+  async function handleClick() {
+    console.log($connected, $chainId, $selectedAccount)
+    const balance = await $web3.eth.getBalance($selectedAccount)
+    console.log(balance)
+  }
 </script>
 
-<div>
-  <div class="container">
-    <div class="row row-main">
-      <div class="col brand-col">
-        <div class="row brand-row">
-          <div class="brand col-12 col-sm-6 col-md-3">
-            <img src="assets/images/side-bar-left.png" alt="" />
-          </div>
-          <div class="brand col-12 col-sm-6 col-md-3">
-            <a href="https://opensea.io/The444Society" target="_blank"
-              ><img src="assets/images/untitled-14.png" alt="OpenSea" /></a
-            >
-          </div>
-          <div class="brand col-12 col-sm-6 col-md-3">
-            <img src="assets/images/side-bar-right.png" alt="" />
-          </div>
-        </div>
-      </div>
+  <button on:click={handleClick}>
+    <div class="card-img mbr-figure">
+      <img src="assets/images/all-together-1408x807.png" alt="StartMinting" />
     </div>
-  </div>
-</div>
+  </button>
 
 <style></style>
