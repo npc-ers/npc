@@ -1,5 +1,5 @@
 <script>
-  console.log("SVELTE IS RUNNING");
+  console.log("SVELTE IS RUNNING!");
   import {
   defaultEvmStores,
   makeContractStore,
@@ -12,7 +12,8 @@
   const rbyDeploy = "0xE2055A8D05B849728f46749AdA3AF7A020E06F51";
   const store = makeContractStore(contractJson.abi, rbyDeploy);
 
-  defaultEvmStores.setProvider('https://eth-rinkeby.alchemyapi.io/v2/j0lSD1_wDvtdG-YYUzT_Tceh_95VITDI')
+  // defaultEvmStores.setProvider('https://eth-rinkeby.alchemyapi.io/v2/j0lSD1_wDvtdG-YYUzT_Tceh_95VITDI')
+  defaultEvmStores.setProvider()
 
   const errMap = {
     store: "Store isn't open yet",
@@ -72,7 +73,7 @@
         errMessage = errMap.notEnough
       }
 
-      alert(errMessage || "Next up! Erorr Messagee Number 5");
+      alert(errMessage || "Next up! Error Message Number 5");
       console.log(e)
       console.log("bye")
     }
