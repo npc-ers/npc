@@ -12,7 +12,7 @@
   const rbyDeploy = "0xE2055A8D05B849728f46749AdA3AF7A020E06F51";
   const store = makeContractStore(contractJson.abi, rbyDeploy);
 
-  defaultEvmStores.setProvider();
+  defaultEvmStores.setProvider('https://eth-rinkeby.alchemyapi.io/v2/j0lSD1_wDvtdG-YYUzT_Tceh_95VITDI')
 
   const errMap = {
     store: "Store isn't open yet",
@@ -72,8 +72,9 @@
         errMessage = errMap.notEnough
       }
 
-      alert(errMessage || "We ran into an error. Please let us know!");
+      alert(errMessage || "Next up! Erorr Messagee Number 5");
       console.log(e)
+      console.log("bye")
     }
   }
 </script>
