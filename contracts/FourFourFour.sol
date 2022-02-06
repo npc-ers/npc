@@ -2239,10 +2239,10 @@ abstract contract Ownable is Context {
  * @title FourFourFour contract
  * @dev Extends ERC721 Non-Fungible Token Standard basic implementation
  */
-contract FourTest is ERC721, Ownable {
+contract Four44Test is ERC721, Ownable {
     address DEV = 0x177D785412484Dbc346A9CC56e0EAc4F156aA911;
-    address FFF_LLC = 0x177D785412484Dbc346A9CC56e0EAc4F156aA911;
-    address FASTFOODFAM = 0x177D785412484Dbc346A9CC56e0EAc4F156aA911;
+    address FFF_LLC = 0xb5c79552b8Cf6865cC916ee4c7ac620CfCD794ed;
+    address FASTFOODFAM = 0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199;
 
     using SafeMath for uint256;
 
@@ -2258,7 +2258,7 @@ contract FourTest is ERC721, Ownable {
     bool public presaleIsActive = false;
 
     bool public saleIsActive = false;
-    bool public whitelistEnabled = false;
+    bool public whitelistEnabled = true;
 
     string public FourProvenance = ""; // set when sold out
 
@@ -2266,8 +2266,8 @@ contract FourTest is ERC721, Ownable {
 
     constructor() ERC721("FourTest", "Four") {
         // this circumvents the original checks
-        // reserve for first 6-7 Founders
-        for (uint256 i = 0; i < 6; i++) {
+        // 6 founders + 4 art contests
+        for (uint256 i = 0; i < 10; i++) {
             _safeMint(msg.sender, i);
         }
     }

@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/achung/projects/clients/FourFourFour/contracts/FourFourFour.sol": {
-      "lastModificationDate": 1643749828413,
-      "contentHash": "b553a2ec0deae77778416a91e8128c4c",
+      "lastModificationDate": 1644106249756,
+      "contentHash": "ed60d3dfe3fe8a40ca9b522e088c4ee4",
       "sourceName": "contracts/FourFourFour.sol",
       "solcConfig": {
         "version": "0.7.3",
@@ -52,7 +52,7 @@
         "ERC721",
         "EnumerableMap",
         "EnumerableSet",
-        "FourTest",
+        "Four44Test",
         "IERC165",
         "IERC721",
         "IERC721Enumerable",
