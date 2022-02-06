@@ -18,6 +18,7 @@
     store: "Store isn't open yet",
     whitelist: "You must be on the white list",
     Premint: "Preminting is not open!",
+    notEnough: "It looks like you don't have enough ETH to cover your mint, please add more to your balance before trying again."
   };
 
   async function handleClick(number = 1) {
@@ -65,6 +66,10 @@
 
       if (e.message.includes("Preminting")) {
         errMessage = errMap.Premint;
+      }
+
+      if (e.message.includes("insufficient funds")) {
+        errMessage = errMap.notEnough
       }
 
       alert(errMessage || "We ran into an error. Please let us know!");
