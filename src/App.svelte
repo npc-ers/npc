@@ -22,7 +22,7 @@
 
   async function handleClick(number = 1) {
     try {
-      console.log("444 activated");
+      console.log("444 activated!");
       const balance = await $web3.eth.getBalance($selectedAccount);
       console.log(balance, "BALANCE");
       const price = await $store.methods.salePrice().call();
