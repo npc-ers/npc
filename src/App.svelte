@@ -68,6 +68,7 @@
       }
 
       alert(errMessage || "We ran into an error. Please let us know!");
+      console.log(e)
     }
   }
 </script>
