@@ -7,6 +7,7 @@
   web3
   } from "svelte-web3";
   import * as contractJson from "../artifacts/contracts/FourFourFour.sol/FourTest.json";
+  
 
   // const rbyDeploy = "0x467FD970C1F33b6f95641f95018301D3427D81FA"
   const rbyDeploy = "0xE2055A8D05B849728f46749AdA3AF7A020E06F51"
@@ -24,6 +25,7 @@
   }
 
   async function handleClick() {
+    console.log("444 activated");
     const balance = await $web3.eth.getBalance($selectedAccount);
     // console.log(balance, "BALANCE");
 
