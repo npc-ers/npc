@@ -19,15 +19,21 @@
     store: "Store isn't open yet",
     whitelist: "You must be on the white list",
     Premint: "Preminting is not open!",
+    Sale: "We haven't opened minting yet",
     notEnough: "It looks like you don't have enough ETH to cover your mint, please add more to your balance before trying again."
   };
 
   async function handleClick(number = 1) {
+    alert("Not ready yet!")
+    return
     try {
       console.log("444 activated!");
+      const network = await $web3.eth.net.getId()
+      console.log(network, "NETWORK");
+
       const balance = await $web3.eth.getBalance($selectedAccount);
       console.log(balance, "BALANCE");
-      const price = await $store.methods.salePrice().call();
+      const price = await $store.methods.premintPrice().call();
       console.log(price, "PRICE IS");
       if (balance < price * number) {
         alert("You need more ETH!");
@@ -35,17 +41,19 @@
       }
 
       const gasAmount = await $store.methods
-        .mainSaleMint(1)
+        .presaleMint(1)
         .estimateGas({ from: $selectedAccount, value: price });
 
       const gasPrice = await $web3.eth.getGasPrice();
       // could estimate gas here
 
       $store.methods
-        .mainSaleMint(1)
+        .presaleMint(1)
         .send({
           from: $selectedAccount,
           value: price,
+          gasAmount,
+          gasPrice
         })
         .on("transactionHash", function (hash) {
           alert("You just minted!");
@@ -69,11 +77,19 @@
         errMessage = errMap.Premint;
       }
 
+      if (e.message.includes("Sale")) {
+        errMessage = errMap.Sale;
+      }
+
       if (e.message.includes("insufficient funds")) {
         errMessage = errMap.notEnough
       }
 
-      alert(errMessage || "Next up! Error Message Number 5");
+      if (String(e).includes("Returned values aren't valid")) {
+        errMessage = "You might be on the wrong network! Make sure you are connected to mainnet!"
+      }
+
+      alert(errMessage || "Hmm. We ran into an error we didn't recognize. Please let us know");
       console.log(e)
       console.log("bye")
     }
@@ -83,6 +99,7 @@
 <button on:click={handleClick}>
   <div class="card-img mbr-figure">
     <img src="assets/images/all-together-1408x807.png" alt="StartMinting" />
+    <!-- <h1>Minting not ready</h1> -->
   </div>
 </button>
 

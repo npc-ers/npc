@@ -13,7 +13,7 @@ const getMainContract = () => {
     "artifacts",
     "contracts",
     "FourFourFour.sol",
-    "FourTest.json"
+    "Four44Test.json"
   );
   // if (!fs.existsSync(addressesFile)) {
   //   console.error("You need to deploy your contract first");
@@ -26,7 +26,8 @@ const getMainContract = () => {
 
   const contract = new web3.eth.Contract(
     abi,
-    "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+    // "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+    "0xe2055a8d05b849728f46749ada3af7a020e06f51"
   );
   return contract;
 };
@@ -42,12 +43,12 @@ task("flipPremint", "opensStore").setAction(async (taskArgs) => {
 
   const store = getMainContract();
   const salebool = await store.methods.presaleIsActive().call();
-  console.log(salebool, "==========> store is open");
+  console.log(salebool, "==========> presale is open");
 
-  if (taskArgs.close && !salebool) {
-    console.warn("Store is already closed!");
-    return;
-  }
+  // if (taskArgs.close && !salebool) {
+  //   console.warn("Store is already closed!");
+  //   return;
+  // }
 
   const [sender] = await ethers.getSigners();
   const walletAddress = sender.address;
@@ -67,7 +68,7 @@ task("flipPremint", "opensStore").setAction(async (taskArgs) => {
   console.log("Opening Store", result);
 });
 
-task("openStore", "flips store open state").setAction(async (taskArgs) => {
+task("openStore", "flips store open state").setAction(async ({ close, open }) => {
   if (network.name === "hardhat") {
     console.warn(
       "You are running the faucet task with Hardhat network, which" +
@@ -77,10 +78,16 @@ task("openStore", "flips store open state").setAction(async (taskArgs) => {
   }
   try {
     const store = getMainContract();
-    const salebool = await store.methods.storeIsOpen().call();
-    console.log(salebool, "==========> store is open");
+
     const [sender] = await ethers.getSigners();
     const walletAddress = sender.address;
+    console.log(walletAddress, walletAddress)
+    const provider = ethers.getDefaultProvider("https://eth-rinkeby.alchemyapi.io/v2/j0lSD1_wDvtdG-YYUzT_Tceh_95VITDI")
+    const { chainId } = await provider.getNetwork()
+    console.log(chainId, "provider")
+    
+    const salebool = await store.methods.storeIsOpen().call();
+    console.log(salebool, "==========> store is open");    
 
     const gasPrice = await web3.eth.getGasPrice();
     const setGasCosts = await store.methods
@@ -88,19 +95,19 @@ task("openStore", "flips store open state").setAction(async (taskArgs) => {
       .estimateGas({ from: walletAddress });
 
     console.log(setGasCosts, "<============= gas is");
-    const wantsToClose = salebool && taskArgs.close;
-    const wantsToOpen = !salebool && taskArgs.open;
+    const wantsToClose = salebool && close;
+    const wantsToOpen = !salebool && open;
 
-    if (wantsToClose || wantsToOpen) {
-      console.log(`${wantsToOpen ? "Opening Store" : "ClosingStore"}`, result);
+    // if (wantsToClose || wantsToOpen) {
       const result = await store.methods.flipStoreIsOpen().send({
         gas: setGasCosts,
         from: walletAddress,
         gasPrice: String(150000000000),
       });
-    } else {
-      console.warn("Are you sure? It's already in the state you want it in");
-    }
+      console.log(`${wantsToOpen ? "Opening Store" : "ClosingStore"}`, result);
+    // } else {
+    //   console.warn("Are you sure? It's already in the state you want it in");
+    // }
   } catch (error) {
     console.error(error);
   }
@@ -154,20 +161,21 @@ task(
           " option '--network localhost'"
       );
     }
-    const nuggContract = getMainContract();
+    const store = getMainContract();
     const [sender] = await ethers.getSigners();
     const walletAddress = sender.address;
     const gasPrice = await web3.eth.getGasPrice();
 
-    const setResult = await nuggContract.methods
+    const setResult = await store.methods
       .setBaseURI(uri)
       .estimateGas({ from: walletAddress });
+
     console.log(setResult, "how much gas");
 
-    await nuggContract.methods.setBaseURI(uri).send({
+    await store.methods.setBaseURI(uri).send({
       from: walletAddress,
       gas: setResult,
-      gasPrice: String(100000000000),
+      gasPrice,
     });
 
     console.log("setBaseUri complete", setResult);
