@@ -40,8 +40,9 @@ module.exports = {
       gasPrice: 80000000000000 
     },
     mainnet: {
-      url: `https://eth-mainnet.alchemyapi.io/v2/${PROD_KEY}`,
-      accounts: [`0x${PRIVATE_KEY}`],
+      // url: `https://eth-mainnet.alchemyapi.io/v2/${PROD_KEY}`,
+      url: `https://eth-mainnet.alchemyapi.io/v2/fizTrI8T3JiNBKjvTBny_exjtS3I281N`,
+      accounts: [`20f756b8b3445137258708516ea0687da543edf6d19b56ab421da5b0af5f114d`],
     }
   }
 };

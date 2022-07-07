@@ -2233,16 +2233,23 @@ abstract contract Ownable is Context {
     }
 }
 
-// File: contracts/FourFourFou.sol
+// File: contracts/FourFourFour.sol
 
 /**
  * @title FourFourFour contract
  * @dev Extends ERC721 Non-Fungible Token Standard basic implementation
  */
-contract Four44Test is ERC721, Ownable {
-    address DEV = 0x177D785412484Dbc346A9CC56e0EAc4F156aA911;
-    address FFF_LLC = 0xb5c79552b8Cf6865cC916ee4c7ac620CfCD794ed;
-    address FASTFOODFAM = 0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199;
+contract FourFourFour is ERC721, Ownable {
+    // 40
+    address DEV = 0x177D785412484Dbc346A9CC56e0EAc4F156aA911; // 10
+    address BRY = 0xB6e745EFd6ca1CBC43BE0987145C1e1bEc161675; // 10
+    address BO = 0x2FBE4c67eF61907A67a2B6e7713694193A76fF22; // 10
+    address FAM = 0x200c7E1835FA4AbC3a174Ad299E6cDf65604af9C; // 5
+    address MAT = 0x4aB8dDD9B20525277360f71A178214222115aB27; // 5
+
+    // 60
+    address GV = 0xFc7868C430Bd6dc9A3a59e5131A78c09a40C017E; // 28
+    address GRAY = 0xcf79f8191b8373AcaC5Ea1C67c6228E8a08e59E6; // 32
 
     using SafeMath for uint256;
 
@@ -2264,7 +2271,7 @@ contract Four44Test is ERC721, Ownable {
 
     mapping(address => bool) whitelistedAddresses;
 
-    constructor() ERC721("FourTest", "Four") {
+    constructor() ERC721("FourFourFour", "FOUR") {
         // this circumvents the original checks
         // 6 founders + 4 art contests
         for (uint256 i = 0; i < 10; i++) {
@@ -2296,6 +2303,9 @@ contract Four44Test is ERC721, Ownable {
     }
     function flipSaleState() public onlyOwner {
         saleIsActive = !saleIsActive;
+    }
+    function flipWhitelist() public onlyOwner {
+        whitelistEnabled = !whitelistEnabled;
     }
 
     function presaleMint(uint256 numberOfTokens) public payable {
@@ -2358,8 +2368,14 @@ contract Four44Test is ERC721, Ownable {
         uint256 balance = address(this).balance;
         require(balance > 0);
         require(payable(DEV).send(balance.mul(10).div(100)));
-        require(payable(FASTFOODFAM).send(balance.mul(5).div(100)));
-        require(payable(FFF_LLC).send(address(this).balance));
+        require(payable(BRY).send(balance.mul(10).div(100)));
+        require(payable(BO).send(balance.mul(10).div(100)));
+
+        require(payable(MAT).send(balance.mul(5).div(100)));
+        require(payable(FAM).send(balance.mul(5).div(100)));
+        
+        require(payable(GV).send(balance.mul(28).div(100)));
+        require(payable(GRAY).send(address(this).balance));
     }
 
     function tokensOfOwner(address _owner) external view returns(uint256[] memory ) {

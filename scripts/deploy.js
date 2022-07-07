@@ -2,7 +2,7 @@ require("@nomiclabs/hardhat-web3");
 // This is a script for deploying your contracts. You can adapt it to deploy
 const fs = require("fs");
 // yours, or create new ones.
-const PROJECT_NAME = "Nuggz"
+const PROJECT_NAME = "FourFourFour"
 const common = require("../tasks/common");
 
 async function main() {
@@ -25,7 +25,7 @@ async function main() {
 
   console.log("Account balance:", (await deployer.getBalance()).toString());
 
-  const artifactFile = __dirname + "/../artifacts/contracts/FourFourFour.sol/Four44Test.json";
+  const artifactFile = __dirname + "/../artifacts/contracts/FourFourFour.sol/FourFourFour.json";
   const artifact = fs.readFileSync(artifactFile);
   const { bytecode, abi } = JSON.parse(artifact);
 
@@ -48,12 +48,12 @@ async function main() {
   console.log("project address:", deployedObj._address);
 
   // // We also save the contract's artifacts and address in the frontend directory
-  // saveFrontendFiles(deployedObj);
+  saveFrontendFiles(deployedObj);
 }
 
 function saveFrontendFiles(project) {
   const fs = require("fs");
-  const contractsDir = __dirname + "/../constants/contracts";
+  const contractsDir = __dirname + "/../constants";
 
   if (!fs.existsSync(contractsDir)) {
     fs.mkdirSync(contractsDir);
@@ -61,7 +61,7 @@ function saveFrontendFiles(project) {
 
   fs.writeFileSync(
     contractsDir + "/contract-address.json",
-    JSON.stringify({ [PROJECT_NAME]: project.address }, undefined, 2)
+    JSON.stringify({ [PROJECT_NAME]: project._address }, undefined, 2)
   );
 
   const projectArtifact = artifacts.readArtifactSync(PROJECT_NAME);

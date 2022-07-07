@@ -35,18 +35,18 @@ task("withdraw", "runs the withdraw function on smart contract").setAction(
       );
     }
 
-    const nuggContract = common.getMainContract();
+    const contract = common.getMainContract();
     const [sender] = await ethers.getSigners();
     const walletAddress = sender.address;
 
     try {
-      const result = await nuggContract.methods
+      const result = await contract.methods
         .withdrawAll()
         .estimateGas({ from: walletAddress, gas: String(20766766) });
 
       console.log(result);
 
-      await nuggContract.methods.withdrawAll().send({
+      await contract.methods.withdrawAll().send({
         from: walletAddress,
         gas: result,
       });
