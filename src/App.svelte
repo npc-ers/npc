@@ -1,9 +1,11 @@
 <script>
   import { onMount } from "svelte";
   import {
-  connected,defaultEvmStores,
-  makeContractStore,
-  selectedAccount,web3
+    connected,
+    defaultEvmStores,
+    makeContractStore,
+    selectedAccount,
+    web3,
   } from "svelte-web3";
   import * as addressJson from "../constants/contract-address.json";
   import * as contractJson from "../constants/FourFourFour.json";
@@ -29,11 +31,11 @@
   const countDownDate = new Date("Feb 8, 2022 15:00:00").getTime();
 
   function handleDc() {
-    defaultEvmStores.disconnect()
+    defaultEvmStores.disconnect();
   }
 
   function handleConnect() {
-    defaultEvmStores.setProvider()
+    defaultEvmStores.setProvider();
   }
 
   function handleNav() {
@@ -118,10 +120,10 @@
   async function handleClick() {
     if (count === 0) {
       alert("You need to mint at least one");
-      return
+      return;
     }
 
-    return
+    return;
     try {
       // console.log("444 activated!");
       const network = await $web3.eth.net.getId();
@@ -196,21 +198,41 @@
   }
 
   onMount(() => {
-    console.log("setting up dapp")
+    console.log("setting up dapp");
     // defaultEvmStores.setProvider();
   });
-
-
 </script>
 
-{#if !$connected}
-<p>My application is not yet connected</p>
-<button on:click={handleConnect}>Connect</button>
-
-{:else}
-<p>Connected to dapp</p>
-<button on:click={handleDc}>Disconnect</button>
-{/if}
+<div class="text-center">
+  {#if !$connected}
+    <button class="itanica-font btn btn-primary mb-5" on:click={handleConnect}>Connect</button>
+  {:else}
+    <!-- <button class="itanica-font btn btn-primary mb-5" on:click={handleDc}>Disconnect</button> -->
+    <button class="itanica-font btn btn-primary mb-5" on:click={handleDc}>Mint</button>
+  {/if}
+</div>
 
 <style>
+
+/* .text-center :global(.btn) {
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+} */
 </style>
+<!-- https://rinkeby.etherscan.io/address/0xe989b867D924C231894d6Ce0ce29F1F3cAAc9A03 -->
