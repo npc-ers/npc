@@ -100,7 +100,7 @@
 
 <body class="masthead" id="home">
   <div
-    style="position:absolute; top:1em; right: 1em"
+    style="position:absolute; bottom:1em; right: 1em"
   >
     <SvelteToast options={options} target={"default"} />
   </div>
