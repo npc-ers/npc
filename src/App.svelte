@@ -75,7 +75,7 @@
           failToast(errMessage);
         })
         .on("receipt", function (blockData) {
-          console.log(hablockDatash, "minted!");
+          console.log(blockData, "minted!");
           confirmToast(`Minted NFT!! ${createHashLinkedMessage(blockData.blockHash)}`);
         });
     } catch (e) {
