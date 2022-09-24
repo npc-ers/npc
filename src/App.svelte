@@ -17,6 +17,7 @@
   const UNKNOWN_ERROR_MSG =
     "Hmm. We ran into an error we didn't recognize. Please let us know";
   let connectedNetwork = undefined;
+  let count = 1;
 
   function handleDc() {
     defaultEvmStores.disconnect();
@@ -67,19 +68,12 @@
         return;
       }
 
-      const gasPrice = await $web3.eth.getGasPrice();
-      const gasAmount = await $store.methods.mint(MINT_QUANTITY).estimateGas({
-        from: $selectedAccount,
-        value: price,
-      });
-
       $store.methods
         .mint(MINT_QUANTITY)
         .send({
           from: $selectedAccount,
-          gasAmount,
-          gasPrice,
-          value: price
+          value: price,
+          
         })
         .on("transactionHash", function (hash) {
           confirmToast(`Current tx: ${createHashLinkedMessage(hash)}`);
