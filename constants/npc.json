@@ -4,249 +4,88 @@
   "sourceName": "contracts/FourFourFour.sol",
   "abi": [
     {
-      "name": "Transfer",
-      "inputs": [
-        { "name": "sender", "type": "address", "indexed": true },
-        { "name": "receiver", "type": "address", "indexed": true },
-        { "name": "tokenId", "type": "uint256", "indexed": true }
-      ],
-      "anonymous": false,
-      "type": "event"
-    },
-    {
-      "name": "Approval",
-      "inputs": [
-        { "name": "owner", "type": "address", "indexed": true },
-        { "name": "approved", "type": "address", "indexed": true },
-        { "name": "tokenId", "type": "uint256", "indexed": true }
-      ],
-      "anonymous": false,
-      "type": "event"
-    },
-    {
-      "name": "ApprovalForAll",
-      "inputs": [
-        { "name": "owner", "type": "address", "indexed": true },
-        { "name": "operator", "type": "address", "indexed": true },
-        { "name": "approved", "type": "bool", "indexed": false }
-      ],
-      "anonymous": false,
-      "type": "event"
-    },
-    {
       "stateMutability": "nonpayable",
       "type": "constructor",
-      "inputs": [{ "name": "token_addr", "type": "address" }],
+      "inputs": [],
       "outputs": []
     },
     {
-      "stateMutability": "pure",
+      "stateMutability": "view",
       "type": "function",
-      "name": "supportsInterface",
-      "inputs": [{ "name": "interface_id", "type": "bytes4" }],
+      "name": "has_coupon",
+      "inputs": [{ "name": "addr", "type": "address" }],
       "outputs": [{ "name": "", "type": "bool" }]
     },
     {
       "stateMutability": "view",
       "type": "function",
-      "name": "balanceOf",
-      "inputs": [{ "name": "_owner", "type": "address" }],
+      "name": "mint_price",
+      "inputs": [
+        { "name": "quantity", "type": "uint256" },
+        { "name": "addr", "type": "address" }
+      ],
       "outputs": [{ "name": "", "type": "uint256" }]
     },
     {
-      "stateMutability": "view",
-      "type": "function",
-      "name": "ownerOf",
-      "inputs": [{ "name": "tokenId", "type": "uint256" }],
-      "outputs": [{ "name": "", "type": "address" }]
-    },
-    {
-      "stateMutability": "view",
-      "type": "function",
-      "name": "getApproved",
-      "inputs": [{ "name": "tokenId", "type": "uint256" }],
-      "outputs": [{ "name": "", "type": "address" }]
-    },
-    {
-      "stateMutability": "view",
-      "type": "function",
-      "name": "isApprovedForAll",
-      "inputs": [
-        { "name": "owner", "type": "address" },
-        { "name": "operator", "type": "address" }
-      ],
-      "outputs": [{ "name": "", "type": "bool" }]
-    },
-    {
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "name": "transferFrom",
-      "inputs": [
-        { "name": "_from", "type": "address" },
-        { "name": "_to", "type": "address" },
-        { "name": "_tokenId", "type": "uint256" }
-      ],
-      "outputs": []
-    },
-    {
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "name": "safeTransferFrom",
-      "inputs": [
-        { "name": "_from", "type": "address" },
-        { "name": "_to", "type": "address" },
-        { "name": "_tokenId", "type": "uint256" }
-      ],
-      "outputs": []
-    },
-    {
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "name": "safeTransferFrom",
-      "inputs": [
-        { "name": "_from", "type": "address" },
-        { "name": "_to", "type": "address" },
-        { "name": "_tokenId", "type": "uint256" },
-        { "name": "_data", "type": "bytes" }
-      ],
-      "outputs": []
-    },
-    {
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "name": "approve",
-      "inputs": [
-        { "name": "_approved", "type": "address" },
-        { "name": "_tokenId", "type": "uint256" }
-      ],
-      "outputs": []
-    },
-    {
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "name": "setApprovalForAll",
-      "inputs": [
-        { "name": "_operator", "type": "address" },
-        { "name": "_approved", "type": "bool" }
-      ],
-      "outputs": []
-    },
-    {
-      "stateMutability": "nonpayable",
+      "stateMutability": "payable",
       "type": "function",
       "name": "mint",
-      "inputs": [{ "name": "receiver", "type": "address" }],
-      "outputs": [{ "name": "", "type": "bool" }]
-    },
-    {
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "name": "transferMinter",
-      "inputs": [{ "name": "newAddr", "type": "address" }],
+      "inputs": [{ "name": "quantity", "type": "uint256" }],
       "outputs": []
     },
     {
       "stateMutability": "nonpayable",
       "type": "function",
-      "name": "burn",
-      "inputs": [{ "name": "tokenId", "type": "uint256" }],
-      "outputs": [{ "name": "", "type": "bool" }]
-    },
-    {
-      "stateMutability": "view",
-      "type": "function",
-      "name": "name",
-      "inputs": [],
-      "outputs": [{ "name": "", "type": "string" }]
-    },
-    {
-      "stateMutability": "view",
-      "type": "function",
-      "name": "symbol",
-      "inputs": [],
-      "outputs": [{ "name": "", "type": "string" }]
-    },
-    {
-      "stateMutability": "view",
-      "type": "function",
-      "name": "tokenURI",
-      "inputs": [{ "name": "tokenId", "type": "uint256" }],
-      "outputs": [{ "name": "", "type": "string" }]
-    },
-    {
-      "stateMutability": "view",
-      "type": "function",
-      "name": "contractURI",
-      "inputs": [],
-      "outputs": [{ "name": "", "type": "string" }]
-    },
-    {
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "name": "setTokenURI",
-      "inputs": [
-        { "name": "tokenId", "type": "uint256" },
-        { "name": "newURI", "type": "string" }
-      ],
-      "outputs": []
-    },
-    {
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "name": "setContractURI",
-      "inputs": [{ "name": "newURI", "type": "string" }],
-      "outputs": []
-    },
-    {
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "name": "setDefaultMetadata",
-      "inputs": [{ "name": "newURI", "type": "string" }],
-      "outputs": []
-    },
-    {
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "name": "transferOwner",
-      "inputs": [{ "name": "newAddr", "type": "address" }],
-      "outputs": []
-    },
-    {
-      "stateMutability": "view",
-      "type": "function",
-      "name": "totalSupply",
-      "inputs": [],
-      "outputs": [{ "name": "", "type": "uint256" }]
-    },
-    {
-      "stateMutability": "view",
-      "type": "function",
-      "name": "tokenByIndex",
-      "inputs": [{ "name": "index", "type": "uint256" }],
-      "outputs": [{ "name": "", "type": "uint256" }]
-    },
-    {
-      "stateMutability": "view",
-      "type": "function",
-      "name": "tokenOfOwnerByIndex",
-      "inputs": [
-        { "name": "owner", "type": "address" },
-        { "name": "index", "type": "uint256" }
-      ],
-      "outputs": [{ "name": "", "type": "uint256" }]
-    },
-    {
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "name": "set_thing_token",
+      "name": "admin_set_nft_addr",
       "inputs": [{ "name": "addr", "type": "address" }],
       "outputs": []
     },
     {
       "stateMutability": "nonpayable",
       "type": "function",
-      "name": "set_baseURI",
-      "inputs": [{ "name": "base_uri", "type": "string" }],
+      "name": "admin_set_token_addr",
+      "inputs": [{ "name": "addr", "type": "address" }],
+      "outputs": []
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "admin_new_owner",
+      "inputs": [{ "name": "new_owner", "type": "address" }],
+      "outputs": []
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "admin_withdraw",
+      "inputs": [
+        { "name": "target", "type": "address" },
+        { "name": "amount", "type": "uint256" }
+      ],
+      "outputs": []
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "admin_update_coupon_token",
+      "inputs": [{ "name": "token", "type": "address" }],
+      "outputs": []
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "admin_add_to_whitelist",
+      "inputs": [{ "name": "addr", "type": "address" }],
+      "outputs": []
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "admin_mint",
+      "inputs": [
+        { "name": "addr", "type": "address" },
+        { "name": "quantity", "type": "uint256" }
+      ],
       "outputs": []
     },
     {
@@ -259,44 +98,44 @@
     {
       "stateMutability": "view",
       "type": "function",
-      "name": "minter",
+      "name": "nft_addr",
       "inputs": [],
       "outputs": [{ "name": "", "type": "address" }]
     },
     {
       "stateMutability": "view",
       "type": "function",
-      "name": "totalMinted",
+      "name": "token_addr",
+      "inputs": [],
+      "outputs": [{ "name": "", "type": "address" }]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "min_price",
       "inputs": [],
       "outputs": [{ "name": "", "type": "uint256" }]
     },
     {
       "stateMutability": "view",
       "type": "function",
-      "name": "defaultURI",
-      "inputs": [],
-      "outputs": [{ "name": "", "type": "string" }]
-    },
-    {
-      "stateMutability": "view",
-      "type": "function",
-      "name": "baseURI",
-      "inputs": [],
-      "outputs": [{ "name": "", "type": "string" }]
-    },
-    {
-      "stateMutability": "view",
-      "type": "function",
-      "name": "currentThing",
-      "inputs": [{ "name": "arg0", "type": "uint256" }],
-      "outputs": [{ "name": "", "type": "string" }]
-    },
-    {
-      "stateMutability": "view",
-      "type": "function",
-      "name": "token",
+      "name": "coupon_token",
       "inputs": [],
       "outputs": [{ "name": "", "type": "address" }]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "whitelist",
+      "inputs": [{ "name": "arg0", "type": "address" }],
+      "outputs": [{ "name": "", "type": "bool" }]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "used_coupon",
+      "inputs": [{ "name": "arg0", "type": "address" }],
+      "outputs": [{ "name": "", "type": "bool" }]
     }
   ],
   "bytecode": "",
