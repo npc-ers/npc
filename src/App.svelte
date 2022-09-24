@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { toast } from "@zerodevx/svelte-toast";
-
+  import { confirmToast, failToast } from './Toasts';
   import {
     connected,
     defaultEvmStores,
@@ -15,7 +15,8 @@
   const testnetDeploy = "0xe989b867D924C231894d6Ce0ce29F1F3cAAc9A03";
   const store = makeContractStore(contractJson.abi, testnetDeploy);
   const options = {};
-
+  const UNKNOWN_ERROR_MSG = "Hmm. We ran into an error we didn't recognize. Please let us know";
+  
   function handleDc() {
     defaultEvmStores.disconnect();
   }
@@ -26,18 +27,6 @@
 
   async function handleClickSale() {
     try {
-      toast.push("Mint successful! Welcome NPC", {
-        initial: 0,
-        next: 0,
-        dismissable: false,
-        theme: {
-          "--toastBackground": "#48BB78",
-          "--toastBarBackground": "#2F855A",
-          "--toastBackground": "cyan",
-          "--toastColor": "black",
-        },
-      });
-      return;
       const network = await $web3.eth.net.getId();
       console.log(network, "NETWORK");
 
@@ -56,28 +45,26 @@
         })
         .on("transactionHash", function (hash) {
           console.log(hash, "we should include a txn hash");
-          toast.push("Mint successful! Welcome NPC");
+          // toast.push("Mint successful! Welcome NPC");
+          confirmToast(`Current tx: ${hash}`);
         })
         .on("error", function (error) {
+          console.log(error);
+          let errMessage = UNKNOWN_ERROR_MSG;
           if (error.code === 4001) {
-            alert("You denied the transaction");
+            errMessage = "You denied the transaction";
           }
-          console.log(error, "what happened");
+          failToast(errMessage);
         });
     } catch (e) {
-      let errMessage;
-
+      let errMessage = UNKNOWN_ERROR_MSG;
+      
       if (String(e).includes("Returned values aren't valid")) {
         errMessage =
           "You might be on the wrong network! Make sure you are connected to mainnet!";
       }
 
-      alert(
-        errMessage ||
-          "Hmm. We ran into an error we didn't recognize. Please let us know"
-      );
-      // console.log(e)
-      // console.log("bye")
+      failToast(errMessage);
     }
   }
 
@@ -91,9 +78,13 @@
 
 <body class="masthead" id="home">
   <div
+    style="position:absolute; top:1em; right: 1em"
+  >
+    <SvelteToast options={options} target={"default"} />
+  </div>
+  <div
     class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center"
   >
-    <SvelteToast {options} />
     <div class="d-flex justify-content-center">
       <a
         class="itanica-font btn btn-primary mb-5"
@@ -125,5 +116,11 @@
     --toastBackground: black;
     --toastColor: #123456;
     --toastHeight: 300px;
+  }
+  :toast-container-mods {
+    /* --zIndex: 4; */
+    position: absolute;
+    /* top: 0; */
+    /* right: 0; */
   }
 </style>
