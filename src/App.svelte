@@ -68,6 +68,11 @@
         return
       }
 
+      if (number > 10) {
+        failToast("Max mint is 10")
+        return
+      }
+
       connectedNetwork = await $web3.eth.net.getId();
 
       const balance = (await $web3.eth.getBalance($selectedAccount)) || "";
