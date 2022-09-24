@@ -64,7 +64,7 @@
           gasPrice,
         })
         .on("transactionHash", function (hash) {
-          confirmToast(`Current tx: ${createHashLinkedMessage(hash)} />`);
+          confirmToast(`Current tx: ${createHashLinkedMessage(hash)}`);
         })
         .on("error", function (error) {
           console.log(error);
