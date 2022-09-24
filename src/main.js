@@ -4,7 +4,7 @@ const target = document.querySelector("#svelte-app")
 
 export const app = new App({
 	target: target,
-	props: { }
+	props: {}
 });
 
 export default app
