@@ -89,7 +89,9 @@
       <a
         class="itanica-font btn btn-primary mb-5"
         href="https://discord.gg/CUC2gyPTaU"
+        target="_blank"
         style="font-size: 1em; margin-left: 3em">Discord</a
+        
       >
       <div class="text-center d-flex justify-content-center">
         {#if !$connected}
