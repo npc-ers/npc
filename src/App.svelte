@@ -53,11 +53,26 @@
 
   async function handleClickSale() {
     try {
+      var number = parseInt(
+        window.prompt("How many to mint?", "1"),
+        10
+      );
+
+      if (!/^[0-9.,]+$/.test(number)) {
+        failToast("You need to input a number")
+        return
+      } 
+
+      if (number === 0) {
+        failToast("You should mint at least one")
+        return
+      }
+
       connectedNetwork = await $web3.eth.net.getId();
-      console.log(connectedNetwork, "NETWORK");
 
       const balance = (await $web3.eth.getBalance($selectedAccount)) || "";
-      const MINT_QUANTITY = 1;
+
+      const MINT_QUANTITY = 1 * number;
 
       const price = await $store.methods
         .mint_price(MINT_QUANTITY, $selectedAccount)
@@ -73,7 +88,6 @@
         .send({
           from: $selectedAccount,
           value: price,
-          
         })
         .on("transactionHash", function (hash) {
           confirmToast(`Current tx: ${createHashLinkedMessage(hash)}`);
