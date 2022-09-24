@@ -69,10 +69,8 @@
   }
 
   onMount(() => {
-    console.log("setting up dapp");
-    // defaultEvmStores.setProvider(
-    //   "https://eth-rinkeby.alchemyapi.io/v2/j0lSD1_wDvtdG-YYUzT_Tceh_95VITDI"
-    // );
+    // if it's available, we'll just set it
+    defaultEvmStores.setProvider();
   });
 </script>
 
@@ -91,7 +89,6 @@
         href="https://discord.gg/CUC2gyPTaU"
         target="_blank"
         style="font-size: 1em; margin-left: 3em">Discord</a
-        
       >
       <div class="text-center d-flex justify-content-center">
         {#if !$connected}
