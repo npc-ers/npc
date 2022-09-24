@@ -91,10 +91,8 @@
   }
 
   onMount(() => {
-    console.log("setting up dapp");
-    // defaultEvmStores.setProvider(
-    //   "https://eth-rinkeby.alchemyapi.io/v2/j0lSD1_wDvtdG-YYUzT_Tceh_95VITDI"
-    // );
+    // if it's available, we'll just set it
+    defaultEvmStores.setProvider();
   });
 </script>
 
@@ -107,10 +105,11 @@
   <div
     class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center"
   >
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center" style="padding-bottom:120px;">
       <a
         class="itanica-font btn btn-primary mb-5"
         href="https://discord.gg/CUC2gyPTaU"
+        target="_blank"
         style="font-size: 1em; margin-left: 3em">Discord</a
       >
       <div class="text-center d-flex justify-content-center">
@@ -121,7 +120,6 @@
             style="font-size:1em;margin-left:3em;">Connect</button
           >
         {:else}
-          <!-- <button class="itanica-font btn btn-primary mb-5" on:click={handleDc}>Disconnect</button> -->
           <button
             class="itanica-font btn btn-primary mb-5"
             on:click={handleClickSale}
@@ -132,6 +130,7 @@
     </div>
   </div>
 </body>
+<footer class="footer bg-black small text-center text-white-50" style="background-color: rgb(0, 161, 255);"><div class="container px-4 px-lg-5">watch out mfers</div></footer>
 
 <style>
   :root {
