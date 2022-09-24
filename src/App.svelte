@@ -1,7 +1,6 @@
 <script>
   import { onMount } from "svelte";
   import { SvelteToast } from "@zerodevx/svelte-toast";
-  import { toast } from "@zerodevx/svelte-toast";
   import { confirmToast, failToast } from './Toasts';
   import {
     connected,
@@ -16,6 +15,7 @@
   const store = makeContractStore(contractJson.abi, testnetDeploy);
   const options = {};
   const UNKNOWN_ERROR_MSG = "Hmm. We ran into an error we didn't recognize. Please let us know";
+  let connectedNetwork = undefined;
   
   function handleDc() {
     defaultEvmStores.disconnect();
@@ -25,10 +25,30 @@
     defaultEvmStores.setProvider();
   }
 
+  function cleanHash(hash) {
+    return (hash.substring(0,5) + "..." + hash.substring(hash.length-5, hash.length));
+  }
+
+  function createHashLinkedMessage(hash) {
+    let link = '';
+    switch (connectedNetwork){
+      case 4:
+        link = 'https://rinkeby.etherscan.io/tx/';
+        break;
+      case 5:
+        link = 'https://goerli.etherscan.io/tx/';
+        break;
+      default:
+        link = 'https://etherscan.io/tx/';
+    }
+    let cleanedHash = cleanHash(hash);
+    return `<a href=${link+hash} target="_blank">${cleanedHash}</a>`;
+  }
+
   async function handleClickSale() {
     try {
-      const network = await $web3.eth.net.getId();
-      console.log(network, "NETWORK");
+      connectedNetwork = await $web3.eth.net.getId();
+      console.log(connectedNetwork, "NETWORK");
 
       console.log($selectedAccount, "what");
       const gasAmount = await $store.methods
@@ -44,7 +64,7 @@
           gasPrice,
         })
         .on("transactionHash", function (hash) {
-          confirmToast(`Current tx: ${hash}`);
+          confirmToast(`Current tx: ${createHashLinkedMessage(hash)}`);
         })
         .on("error", function (error) {
           console.log(error);
@@ -53,6 +73,10 @@
             errMessage = "You denied the transaction";
           }
           failToast(errMessage);
+        })
+        .on("receipt", function (blockData) {
+          console.log(blockData, "minted!");
+          confirmToast(`Minted NFT!! ${createHashLinkedMessage(blockData.blockHash)}`);
         });
     } catch (e) {
       let errMessage = UNKNOWN_ERROR_MSG;
@@ -74,7 +98,7 @@
 
 <body class="masthead" id="home">
   <div
-    style="position:absolute; top:1em; right: 1em"
+    style="position:absolute; bottom:1em; right: 1em"
   >
     <SvelteToast options={options} target={"default"} />
   </div>
@@ -113,11 +137,5 @@
     --toastBackground: black;
     --toastColor: #123456;
     --toastHeight: 300px;
-  }
-  :toast-container-mods {
-    /* --zIndex: 4; */
-    position: absolute;
-    /* top: 0; */
-    /* right: 0; */
   }
 </style>
