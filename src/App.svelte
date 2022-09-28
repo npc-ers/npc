@@ -151,6 +151,7 @@
           >
         {:else}
           <button
+            disabled
             class="itanica-font btn btn-primary mb-5"
             on:click={handleClickSale}
             style="font-size:1em;margin-left:3em;">Mint</button
