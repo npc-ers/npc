@@ -9,19 +9,19 @@
     selectedAccount,
     web3,
   } from "svelte-web3";
+  import { config } from './config'
+
   import * as contractJson from "../constants/npc.json";
 
-  const goerliMinterAddress = "0x97eEBA7e28cfcED7ae2988125EFA857b8E1c2FE2";
+  // NB: haven't tested different envs with Vercel yet
+  const goerliMinterAddress = "0xb810917d144f9cdf493712832f2b4c7b47378608";
+
   const store = makeContractStore(contractJson.abi, goerliMinterAddress);
   const options = {};
   const UNKNOWN_ERROR_MSG =
     "Hmm. We ran into an error we didn't recognize. Please let us know";
   let connectedNetwork = undefined;
   let count = 1;
-
-  function handleDc() {
-    defaultEvmStores.disconnect();
-  }
 
   function handleConnect() {
     defaultEvmStores.setProvider();
@@ -53,24 +53,21 @@
 
   async function handleClickSale() {
     try {
-      var number = parseInt(
-        window.prompt("How many to mint?", "1"),
-        10
-      );
+      var number = parseInt(window.prompt("How many to mint?", "1"), 10);
 
       if (!/^[0-9.,]+$/.test(number)) {
-        failToast("You need to input a number")
-        return
-      } 
+        failToast("You need to input a number");
+        return;
+      }
 
       if (number === 0) {
-        failToast("You should mint at least one")
-        return
+        failToast("You should mint at least one");
+        return;
       }
 
       if (number > 10) {
-        failToast("Max mint is 10")
-        return
+        failToast("Max mint is 10");
+        return;
       }
 
       connectedNetwork = await $web3.eth.net.getId();
