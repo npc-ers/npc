@@ -9,7 +9,6 @@
     selectedAccount,
     web3,
   } from "svelte-web3";
-  import { config } from './config'
 
   import * as contractJson from "../constants/npc.json";
 
@@ -53,9 +52,9 @@
 
   async function handleClickSale() {
     try {
-      var number = parseInt(window.prompt("How many to mint?", "1"), 10);
+      var number = parseInt(window.prompt("How many of DN do u want anon?", "1"), 10);
 
-      if (!/^[0-9.,]+$/.test(number)) {
+      if (!/^[0-9.,]+$/.test(String(number).replace(/\D/g,''))) {
         failToast("You need to input a number");
         return;
       }
@@ -71,6 +70,9 @@
       }
 
       connectedNetwork = await $web3.eth.net.getId();
+
+      console.log(connectedNetwork, "network")
+
 
       const balance = (await $web3.eth.getBalance($selectedAccount)) || "";
 
@@ -105,7 +107,7 @@
         .on("receipt", function (blockData) {
           console.log(blockData, "minted!");
           confirmToast(
-            `Minted NFT!! ${createHashLinkedMessage(blockData.blockHash)}`
+            `Minted NFT!! ${createHashLinkedMessage(blockData.transactionHash)}`
           );
         });
     } catch (e) {
