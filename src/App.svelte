@@ -14,8 +14,9 @@
 
   // NB: haven't tested different envs with Vercel yet
   const goerliMinterAddress = "0xb810917d144f9cdf493712832f2b4c7b47378608";
+  const mainnetMinterAddress = "0xe623dbBA7E8FE47fdEdDAE83c6759bDBFeccFfEa";
 
-  const store = makeContractStore(contractJson.abi, goerliMinterAddress);
+  const store = makeContractStore(contractJson.abi, mainnetMinterAddress);
   const options = {};
   const UNKNOWN_ERROR_MSG =
     "Hmm. We ran into an error we didn't recognize. Please let us know";
@@ -151,7 +152,6 @@
           >
         {:else}
           <button
-            disabled
             class="itanica-font btn btn-primary mb-5"
             on:click={handleClickSale}
             style="font-size:1em;margin-left:3em;">Mint</button
