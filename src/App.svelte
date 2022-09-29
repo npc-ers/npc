@@ -14,7 +14,7 @@
 
   // NB: haven't tested different envs with Vercel yet
   const goerliMinterAddress = "0xb810917d144f9cdf493712832f2b4c7b47378608";
-  const mainnetMinterAddress = "0xe623dbBA7E8FE47fdEdDAE83c6759bDBFeccFfEa";
+  const mainnetMinterAddress = "0xcCaB5Bc6CFF44272c1919F9A6d6db516E5c276a3";
 
   const store = makeContractStore(contractJson.abi, mainnetMinterAddress);
   const options = {};
@@ -53,7 +53,7 @@
 
   async function handleClickSale() {
     try {
-      var number = parseInt(window.prompt("How many of DN do u want anon?", "1"), 10);
+      var number = parseInt(window.prompt("How many of DN do u want anon (0.008)?", "1"), 10);
 
       if (!/^[0-9.,]+$/.test(String(number).replace(/\D/g,''))) {
         failToast("You need to input a number");
@@ -161,11 +161,15 @@
     </div>
   </div>
 </body>
+
 <footer
   class="footer bg-black small text-center text-white-50"
   style="background-color: rgb(0, 161, 255);"
 >
   <div class="container px-4 px-lg-5">watch out mfers</div>
+  <!-- <div class="text-black" style="background-color: white;">
+  <h4>How to view $THING</h4>
+  </div> -->
 </footer>
 
 <style>
