@@ -83,7 +83,7 @@
         .mint_price(MINT_QUANTITY, $selectedAccount)
         .call();
 
-      if (balance < price * MINT_QUANTITY) {
+      if (balance < price) {
         failToast("Sorry. You need more ETH");
         return;
       }
