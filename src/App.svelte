@@ -151,10 +151,15 @@
             style="font-size:1em;margin-left:3em;">Connect</button
           >
         {:else}
-          <button
+          <!-- <button
             class="itanica-font btn btn-primary mb-5"
             on:click={handleClickSale}
             style="font-size:1em;margin-left:3em;">Mint</button
+          > -->
+          <button
+            disabled
+            class="itanica-font btn btn-primary mb-5"
+            style="font-size:1em;margin-left:3em;">V1 Sold out</button
           >
         {/if}
       </div>
